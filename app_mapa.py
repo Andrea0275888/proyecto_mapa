@@ -44,7 +44,7 @@ if "restart" not in st.session_state:
 columna1, columna2 = st.columns(2)
 
 with columna1: 
-    if st.buttion("Pausar / Reanudar"): 
+    if st.button("Pausar / Reanudar"): 
         st.session_state.paused= not st.session_state.paused
 with columna2: 
     if st.button("Reiniciar"): 
