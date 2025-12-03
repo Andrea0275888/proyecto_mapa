@@ -46,7 +46,7 @@ for hour in horas_sorted:
         "ScatterplotLayer",
         data= batch_actual, 
         get_position=["Coordx", "Coordy"],
-        get_radius = 1000,
+        get_radius = 400,
         get_color="color",
         pickable= True,
     )
