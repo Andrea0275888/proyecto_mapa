@@ -54,7 +54,7 @@ map_placeholder=st.empty()
 
 if st.session_state.restart: 
     st.session_state.restart = False
-    st.experimental_rerun()
+    st.rerun()
 
 for hour in horas_sorted: 
     while st.session_state.paused: 
