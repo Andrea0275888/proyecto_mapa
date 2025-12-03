@@ -21,8 +21,6 @@ df = df.dropna(subset=["Coordx", "Coordy"])
 df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
 df= df.dropna(subset=["timestamp"])
 
-
-
 df["hour"] = df["timestamp"].dt.floor("h")
 df = df.sort_values(by="timestamp")
 horas_sorted= sorted(df["hour"].unique())
@@ -36,9 +34,32 @@ COLOR_MAP={
 
 df["color"]= df["predominant_color"].map(COLOR_MAP)
 
+if "paused" not in st.session_state: 
+    st.session_state.paused = False 
+
+if "restart" not in st.session_state: 
+    st.session_state.restart = False
+
+
+columna1, columna2 = st.columns(2)
+
+with columna1: 
+    if st.buttion("Pausar / Reanudar"): 
+        st.session_state.paused= not st.session_state.paused
+with columna2: 
+    if st.button("Reiniciar"): 
+        st.session_state.restart= True
+
 map_placeholder=st.empty()
 
+if st.session_state.restart: 
+    st.session_state.restart = False
+    st.experimental_rerun()
+
 for hour in horas_sorted: 
+    while st.session_state.paused: 
+        time.sleep(0.2)
+
     batch_actual= df[df["hour"]== hour]
     st.write("Hora: ", hour)
     
